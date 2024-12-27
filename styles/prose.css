@@ -1,0 +1,77 @@
+/* 基础样式 */
+.prose {
+  @apply max-w-none text-foreground;
+}
+
+/* 标题样式 */
+.prose h1 {
+  @apply text-4xl font-bold text-foreground mt-8 mb-4;
+}
+
+.prose h2 {
+  @apply text-3xl font-bold text-foreground mt-6 mb-3;
+}
+
+.prose h3 {
+  @apply text-2xl font-bold text-foreground mt-4 mb-2;
+}
+
+/* 段落样式 */
+.prose p {
+  @apply my-4 leading-7;
+}
+
+/* 列表样式 */
+.prose ul {
+  @apply list-disc list-inside my-4;
+}
+
+.prose ol {
+  @apply list-decimal list-inside my-4;
+}
+
+.prose li {
+  @apply my-2;
+}
+
+/* 代码块样式 */
+.prose pre {
+  @apply bg-muted p-4 rounded-lg my-4 overflow-x-auto;
+}
+
+.prose code {
+  @apply text-sm font-mono bg-muted px-1 py-0.5 rounded;
+}
+
+/* 引用样式 */
+.prose blockquote {
+  @apply border-l-4 border-muted pl-4 italic my-4;
+}
+
+/* 表格样式 */
+.prose table {
+  @apply border-collapse w-full my-4;
+}
+
+.prose table th {
+  @apply border border-border p-2 bg-muted font-bold;
+}
+
+.prose table td {
+  @apply border border-border p-2;
+}
+
+/* 图片样式 */
+.prose img {
+  @apply max-w-full h-auto rounded-lg my-4;
+}
+
+/* 链接样式 */
+.prose a {
+  @apply text-primary hover:underline;
+}
+
+/* 分割线样式 */
+.prose hr {
+  @apply my-8 border-t border-border;
+} 
