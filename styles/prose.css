@@ -36,11 +36,56 @@
 
 /* 代码块样式 */
 .prose pre {
-  @apply bg-muted p-4 rounded-lg my-4 overflow-x-auto;
+  @apply bg-zinc-950 text-zinc-50 p-4 rounded-lg my-4 overflow-x-auto;
 }
 
-.prose code {
-  @apply text-sm font-mono bg-muted px-1 py-0.5 rounded;
+.prose pre code {
+  @apply bg-transparent p-0 text-sm leading-relaxed font-mono;
+  color: inherit;
+}
+
+/* 行内代码样式 */
+.prose :not(pre) > code {
+  @apply bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 
+    px-1.5 py-0.5 rounded text-[0.9em] font-mono font-normal;
+}
+
+/* 代码块中的特定语法高亮 */
+.prose pre .keyword,
+.prose pre .function,
+.prose pre .class-name {
+  @apply text-blue-400;
+}
+
+.prose pre .string,
+.prose pre .regex {
+  @apply text-green-400;
+}
+
+.prose pre .number,
+.prose pre .boolean {
+  @apply text-yellow-400;
+}
+
+.prose pre .comment {
+  @apply text-zinc-500 italic;
+}
+
+/* 添加代码块的滚动条样式 */
+.prose pre::-webkit-scrollbar {
+  @apply h-2 w-2;
+}
+
+.prose pre::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+
+.prose pre::-webkit-scrollbar-thumb {
+  @apply bg-zinc-700 rounded-full;
+}
+
+.prose pre::-webkit-scrollbar-thumb:hover {
+  @apply bg-zinc-600;
 }
 
 /* 引用样式 */

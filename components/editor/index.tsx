@@ -34,9 +34,10 @@ interface EditorProps {
   onPreview?: (content: { title: string; content: string; coverUrl?: string }) => void;
   onPublish?: (content: { title: string; content: string; coverUrl?: string }) => void;
   title: string;
+  initialContent?: string;
 }
 
-export function Editor({ onCoverChange, coverUrl, onPreview, onPublish, title }: EditorProps) {
+export function Editor({ onCoverChange, coverUrl, onPreview, onPublish, title, initialContent }: EditorProps) {
   const [wordCount, setWordCount] = useState(0);
   const [editTime, setEditTime] = useState('0分钟');
   const [showMarkdownDialog, setShowMarkdownDialog] = useState(false);
@@ -127,6 +128,7 @@ export function Editor({ onCoverChange, coverUrl, onPreview, onPublish, title }:
         emptyEditorClass: 'is-editor-empty',
       }),
     ],
+    content: initialContent,
     editorProps: {
       attributes: {
         class: 'prose prose-stone dark:prose-invert max-w-none focus:outline-none min-h-[700px]',

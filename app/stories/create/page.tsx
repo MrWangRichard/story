@@ -9,6 +9,7 @@ import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
 import api from '@/lib/axios';
 import { Card, CardContent } from '@/components/ui/card';
+import TurndownService from 'turndown';
 
 export default function CreateStory() {
   const [title, setTitle] = useState('');
@@ -16,23 +17,33 @@ export default function CreateStory() {
   const [loading, setLoading] = useState(false);
   const [isPreview, setIsPreview] = useState(false);
   const [content, setContent] = useState('');
+  const [editorContent, setEditorContent] = useState('');
   const router = useRouter();
   const { toast } = useToast();
 
+  const turndownService = new TurndownService({
+    headingStyle: 'atx',
+    codeBlockStyle: 'fenced'
+  });
+
   const handlePreview = (content: { title: string; content: string; coverUrl?: string }) => {
     setContent(content.content);
+    setEditorContent(content.content);
     setIsPreview(true);
   };
 
   const handlePublish = async (content: { title: string; content: string; coverUrl?: string }) => {
     try {
       setLoading(true);
+      // 将 HTML 转换为 Markdown
+      const markdownContent = turndownService.turndown(content.content);
+      
       const response = await api.post('/storyManage/add', {
         title: content.title,
-        content: content.content,
+        content: markdownContent,  // 发送 Markdown 格式的内容
         coverImg: content.coverUrl || '',
         category: '1',
-        summary: content.content.slice(0, 200),
+        summary: content.content.slice(0, 200).replace(/<[^>]+>/g, ''),  // 移除 HTML 标签
       });
       
       if (response.data.errCode === '0' && response.data.data === true) {
@@ -103,6 +114,7 @@ export default function CreateStory() {
             coverUrl={coverUrl}
             onPreview={handlePreview}
             onPublish={handlePublish}
+            initialContent={editorContent}
           />
         </div>
       </div>

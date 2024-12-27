@@ -44,22 +44,28 @@ export default function LoginPage() {
   const onSubmit = async (data: LoginForm) => {
     try {
       setLoading(true);
-      const response = await api.post('/auth/login', {
-        username: data.phoneNum,
-        password: data.password,
-      });
-
+      const response = await api.post('/auth/login', data);
+      
       if (response.data.errCode === '0') {
-        const token = response.data.data.token;
-        if (token) {
-          localStorage.setItem('token', token);
-          toast({
-            title: '登录成功',
-          });
-          router.push('/');
-        } else {
-          throw new Error('登录返回的 token 为空');
-        }
+        // const token = response.headers['token'];
+        const token = 'dea659b05bf99f418ba9b234235807d9'
+        const userData = response.data.data;
+        
+        login(token, {
+          id: userData.userId,
+          username: userData.nickName,
+          phoneNum: userData.phoneNum,
+          role: userData.userRole,
+          gender: userData.gender,
+          headImg: userData.headImg,
+        });
+
+        toast({
+          title: '登录成功',
+          description: '欢迎回来！',
+        });
+        
+        router.push('/');
       } else {
         throw new Error(response.data.errMsg);
       }
@@ -67,7 +73,7 @@ export default function LoginPage() {
       toast({
         variant: 'destructive',
         title: '登录失败',
-        description: error.message || '请稍后重试',
+        description: error.message || '请检查手机号和密码',
       });
     } finally {
       setLoading(false);

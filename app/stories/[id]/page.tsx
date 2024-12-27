@@ -4,21 +4,22 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import { Navbar } from '@/components/navbar';
 import api from '@/lib/axios';
+import { marked } from 'marked';
 import '@/styles/prose.css';
 
 interface Story {
   storyId: number;
   category: string;
+  title: string;
+  summary: string;
+  content: string;
+  coverImg: string | null;
   userSummaryDto: {
-    userId: number | null;
+    userId: string;
     nickName: string;
     gender: string;
     headImg: string;
   };
-  coverImg: string | null;
-  title: string;
-  summary: string;
-  content: string;
 }
 
 export default function StoryDetail() {
@@ -32,7 +33,15 @@ export default function StoryDetail() {
         const response = await api.post(`/story/detail?storyId=${storyId}`);
         
         if (response.data.errCode === '0') {
-          setStory(response.data.data);
+          const htmlContent = marked(response.data.data.content, {
+            mangle: false,
+            headerIds: false,
+          });
+          
+          setStory({
+            ...response.data.data,
+            content: htmlContent,
+          });
         } else {
           throw new Error(response.data.errMsg);
         }
@@ -47,7 +56,7 @@ export default function StoryDetail() {
   }, [storyId]);
 
   if (!story) {
-    return null; // 或者显示加载状态
+    return null;
   }
 
   return (
