@@ -4,7 +4,8 @@ const api = axios.create({
   baseURL: 'http://47.108.224.204:80/st/api/storytelling',
   timeout: 10000,
   headers: {
-    'Content-Type': 'application/json',
+    'Content-Type': 'application/json;charset=utf-8',
+    'Accept': 'application/json'
   },
 });
 
@@ -23,6 +24,14 @@ api.interceptors.request.use((config) => {
   } else {
     console.warn('No token found in localStorage');
   }
+  // 如果是 POST 请求且有数据
+  if (config.method === 'post' && config.data) {
+    // 确保数据是 UTF-8 编码的字符串
+    if (typeof config.data === 'object') {
+      config.data = JSON.stringify(config.data);
+    }
+  }
+
   return config;
 });
 

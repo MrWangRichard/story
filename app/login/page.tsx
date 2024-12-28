@@ -48,7 +48,7 @@ export default function LoginPage() {
       
       if (response.data.errCode === '0') {
         // const token = response.headers['token'];
-        const token = 'dea659b05bf99f418ba9b234235807d9'
+        const token = 'ad7ed6e294ecf42067b98e06de4208bb'
         const userData = response.data.data;
         
         login(token, {

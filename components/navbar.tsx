@@ -13,6 +13,8 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { UserProfileDialog } from './user-profile-dialog';
 import { StoryTabs } from './story-tabs';
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { PenSquare } from "lucide-react";
 
 export function Navbar() {
   const { user, logout, isAuthenticated } = useAuth();
@@ -56,9 +58,9 @@ export function Navbar() {
                     <DropdownMenuItem onClick={() => setShowProfileDialog(true)}>
                       编辑资料
                     </DropdownMenuItem>
-                    <Link href="/profile">
+                    <Link href="/my/stories">
                       <DropdownMenuItem>
-                        我的主页
+                        我的故事
                       </DropdownMenuItem>
                     </Link>
                     <DropdownMenuSeparator />

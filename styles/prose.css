@@ -36,12 +36,80 @@
 
 /* 代码块样式 */
 .prose pre {
-  @apply bg-zinc-950 text-zinc-50 p-4 rounded-lg my-4 overflow-x-auto;
+  background-color: #1e1e1e !important; /* VS Code 暗色主题背景色 */
+  border-radius: 0.375rem;
+  padding: 1rem;
+  margin: 1.5rem 0;
 }
 
+/* 代码文本颜色 */
 .prose pre code {
-  @apply bg-transparent p-0 text-sm leading-relaxed font-mono;
-  color: inherit;
+  color: #d4d4d4 !important; /* 浅灰色作为默认代码颜色 */
+  background-color: transparent !important;
+  padding: 0;
+  border-radius: 0;
+}
+
+/* 注释样式 */
+.prose pre code .comment,
+.prose pre code .hljs-comment {
+  color: #6A9955 !important; /* VS Code 风格的注释绿色 */
+  font-style: italic;
+}
+
+/* 字符串样式 */
+.prose pre code .string,
+.prose pre code .hljs-string {
+  color: #ce9178 !important; /* 暖橙色 */
+}
+
+/* 关键字样式 */
+.prose pre code .keyword,
+.prose pre code .hljs-keyword {
+  color: #569cd6 !important; /* 蓝色 */
+}
+
+/* 函数名样式 */
+.prose pre code .function,
+.prose pre code .hljs-function {
+  color: #dcdcaa !important; /* 黄色 */
+}
+
+/* 数字样式 */
+.prose pre code .number,
+.prose pre code .hljs-number {
+  color: #b5cea8 !important; /* 浅绿色 */
+}
+
+/* 变量名样式 */
+.prose pre code .variable,
+.prose pre code .hljs-variable {
+  color: #9cdcfe !important; /* 浅蓝色 */
+}
+
+/* 类名样式 */
+.prose pre code .class,
+.prose pre code .hljs-class {
+  color: #4ec9b0 !important; /* 青色 */
+}
+
+/* 内联代码样式 */
+.prose code:not(pre code) {
+  color: #d4d4d4;
+  background-color: #1e1e1e;
+  padding: 0.2em 0.4em;
+  border-radius: 0.375rem;
+  font-size: 0.875em;
+}
+
+/* 暗色主题适配 */
+.dark .prose pre {
+  background-color: #1e1e1e !important;
+}
+
+.dark .prose code:not(pre code) {
+  color: #d4d4d4;
+  background-color: #1e1e1e;
 }
 
 /* 行内代码样式 */
